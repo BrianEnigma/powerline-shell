@@ -224,7 +224,7 @@ def add_git_segment(powerline, cwd):
 
 
 def add_svn_segment(powerline, cwd):
-    is_svn = subprocess.Popen(['svn', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    is_svn = subprocess.Popen(['svn', 'status', '--ignore-externals'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     is_svn_output = is_svn.communicate()[1].strip()
     if len(is_svn_output) != 0:
         return
@@ -246,7 +246,7 @@ def add_svn_segment(powerline, cwd):
     #TODO: Color segment based on above status codes
     try:
         #cmd = '"svn status | grep -c "^[ACDIMRX\\!\\~]"'
-        p1 = subprocess.Popen(['svn', 'status'], stdout=subprocess.PIPE,
+        p1 = subprocess.Popen(['svn', 'status', '--ignore-externals'], stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE)
         p2 = subprocess.Popen(['grep', '-c', '^[ACDIMR\\!\\~]'],
                 stdin=p1.stdout, stdout=subprocess.PIPE)
